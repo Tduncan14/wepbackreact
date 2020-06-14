@@ -20,3 +20,8 @@ function Example(){
 
 
 ReactDOM.render(<Example/>, document.querySelector('#app'))
+
+if(module.hot){
+
+    module.hot.accept
+}
