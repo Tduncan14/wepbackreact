@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import Header from './components/Header';
 import HomeGuest from './components/Main';
 import Footer from './components/Footer';
-
+import About from './components/About';
+import Terms from './components/Term';
 
 function Main(){
 
@@ -12,7 +13,7 @@ function Main(){
   
   <Header/>
 
-    <HomeGuest />
+    <Main />
    
    <Footer/>
    </>
