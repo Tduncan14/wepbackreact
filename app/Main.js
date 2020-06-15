@@ -6,17 +6,25 @@ import Footer from './components/Footer';
 import About from './components/About';
 import Terms from './components/Term';
 
+import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom';
+
 function Main(){
 
     return(
-   <>
+   <Router>
   
   <Header/>
+  
+  <Switch>
+      <Route  exact path="/" component={HomeGuest}/>
 
-    <Main />
+      <Route  exact path="/about" component={About}/>
+
+      <Route exact path ="/Term" component ={Terms} />
+  </Switch>
    
    <Footer/>
-   </>
+   </Router>
     )
 }
 
