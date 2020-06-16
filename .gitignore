@@ -1,1 +1,3 @@
 node_modules
+
+mongodb+srv://treek:<password>@cluster0-qgkgp.mongodb.net/<dbname>?retryWrites=true&w=majority
