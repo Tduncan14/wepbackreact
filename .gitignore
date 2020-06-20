@@ -1,3 +1,6 @@
 node_modules
 
-mongodb+srv://treek:<password>@cluster0-qgkgp.mongodb.net/<dbname>?retryWrites=true&w=majority
+mongodb+srv://treek:pokemon1@cluster0-qgkgp.mongodb.net/protest?retryWrites=true&w=majority
+
+
+JWTSECRET
