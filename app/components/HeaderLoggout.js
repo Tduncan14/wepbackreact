@@ -22,7 +22,7 @@ function HeaderLoggout () {
             password
         })
 
-        console.log(response.data)
+        console.log(response.data,'this is just the respinse', response)
 
      }
 
