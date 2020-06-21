@@ -24,3 +24,6 @@ function HeaderLoggout () {
 
     )
 }
+
+
+export default HeaderLoggout

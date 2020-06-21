@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderLoggout from './HeaderLoggout';
 
 function Header(){
 
@@ -12,6 +13,7 @@ function Header(){
             </a>
           </h4>
          
+         <HeaderLoggout />
         </div>
       </header>
 
