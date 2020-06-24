@@ -1,8 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import Page from './Page';
 import Axios from 'axios'
 
 function CreatePost(){
+
+    
+  const [title , setTitle] = useState();
+
+
+  const [body, setBody] = useState();
+
+  // const [user,setUser] = useState
 
 
      async function handleSubmit(e){
@@ -14,8 +22,8 @@ function CreatePost(){
         try{
          
           const response =  await Axios.post('/create-post',{
-            title:'Test',
-            body:'test content',
+            title:title,
+            body:body,
             token:localStorage.getItem('token')
           } )
 
@@ -53,7 +61,7 @@ return(
       ="post-title" className="text-muted mb-1">
         <small>Title</small>
       </label>
-      <input autoFocus name="title" id="post-title" className="form-control form-control-lg form-control-title" type="text" placeholder="" autoComplete="off" />
+      <input onChange = { e => setTitle(e.target.value)} autoFocus name="title" id="post-title" className="form-control form-control-lg form-control-title" type="text" placeholder="" autoComplete="off" />
     </div>
 
     <div className="form-group">
@@ -61,7 +69,7 @@ return(
       ="post-body" className="text-muted mb-1 d-block">
         <small>Body Content</small>
       </label>
-      <textarea name="body" id="post-body" className="body-content tall-textarea form-control" type="text"></textarea>
+      <textarea onChange={e => setBody(e.target.value)} name="body" id="post-body" className="body-content tall-textarea form-control" type="text"></textarea>
     </div>
 
     <button className="btn btn-primary">Save New Post</button>
