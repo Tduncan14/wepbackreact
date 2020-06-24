@@ -1,9 +1,15 @@
 import React, {useEffect} from 'react';
 
-function HeaderLoggedIn(){
+function HeaderLoggedIn(props){
 
 
+ function signout(){
 
+
+    props.setLoggedIn(false)
+
+    localStorage.removeItem('token');
+ }
 
     return(
 
@@ -21,7 +27,7 @@ function HeaderLoggedIn(){
         <a className="btn btn-sm btn-success mr-2" href="/create-post">
           Create Post
         </a>
-        <button className="btn btn-sm btn-secondary">
+        <button className="btn btn-sm btn-secondary" onClick={signout}>
           Sign Out
         </button>
       </div>

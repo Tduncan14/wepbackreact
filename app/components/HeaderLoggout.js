@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 
 
-function HeaderLoggout () {
+function HeaderLoggout (props) {
 
    const [username,setUsername]  = useState()
 
@@ -21,6 +21,28 @@ function HeaderLoggout () {
             username,
             password
         })
+
+
+        if(response.data){
+
+            console.log(response.data)
+
+            localStorage.setItem("token",response.data.token)
+
+            localStorage.setItem('avatar',response.data.avatar)
+
+
+            localStorage.setItem('username', response.data.username)
+
+       
+
+              props.setLoggedIn(true)
+      
+        }
+
+        else{
+            console.log('error')
+        }
 
         console.log(response.data,'this is just the respinse', response)
 

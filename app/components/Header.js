@@ -6,7 +6,7 @@ import HeaderLoggedIn from './HeaderLoggedin';
 
 function Header(){
 
-    const [loggedIn , setLoggedIn] = useState()
+    const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))
 
     return(
      
@@ -18,7 +18,7 @@ function Header(){
             </Link>
           </h4>
          
-        {LoggedIn ? <HeaderLoggedIn /> : <HeaderLoggout setLoggedIn={setLoggedIn}/>}
+        {loggedIn  ? <HeaderLoggedIn setLoggedIn={setLoggedIn} /> : <HeaderLoggout setLoggedIn={setLoggedIn}/>}
         </div>
       </header>
 
