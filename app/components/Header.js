@@ -4,10 +4,10 @@ import HeaderLoggout from './HeaderLoggout';
 
 import HeaderLoggedIn from './HeaderLoggedin';
 
-function Header(){
+function Header(props){
 
-    const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))
 
+    const {loggedIn,setLoggedIn} = props
     return(
      
         <header className="header-bar bg-primary mb-3">
