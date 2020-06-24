@@ -21,7 +21,11 @@ function Main(){
   <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
   
   <Switch>
-      <Route  exact path="/" component={loggedIn ?Home : HomeGuest}/>
+      {/* <Route  exact path="/" component={loggedIn ?Home : HomeGuest}/> */}
+
+      <Route exact path = "/">
+          {loggedIn ? <Home /> : <HomeGuest />}
+      </Route>
 
       <Route  exact path="/about" component={About}/>
 
