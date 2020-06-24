@@ -6,8 +6,13 @@ import Footer from './components/Footer';
 import About from './components/About';
 import Terms from './components/Term';
 import Home from './components/Home';
+import CreatePost from './components/CreatePost'; 
 
 import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom';
+
+import Axios from 'axios';
+
+Axios.defaults.baseURL ='http://localhost:8080'
 
 function Main(){
 
@@ -28,6 +33,8 @@ function Main(){
       </Route>
 
       <Route  exact path="/about" component={About}/>
+
+     <Route exact path = "/create-post" component ={CreatePost} />
 
       <Route exact path ="/Term" component ={Terms} />
   </Switch>
