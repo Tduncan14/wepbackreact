@@ -13,11 +13,18 @@ function CreatePost(){
 
         try{
          
-          const response = Axios.post('create-post',{
+          const response =  await Axios.post('/create-post',{
             title:'Test',
             body:'test content',
             token:localStorage.getItem('token')
           } )
+
+
+
+          console.log('new post was created')
+
+
+
 
         }
 

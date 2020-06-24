@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Container from './Container';
 import Page from './Page';
-import axios from 'axios';
+import Axios from 'axios';
 
 const Main = () => {
 
@@ -25,7 +25,8 @@ const Main = () => {
       e.preventDefault()
 
     try {
-      await axios.post('/register',{
+      await a
+      Axios.post('/register',{
         username:username,
         email:useremail,
         password:password
