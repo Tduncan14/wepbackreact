@@ -7,6 +7,8 @@ import About from './components/About';
 import Terms from './components/Term';
 import Home from './components/Home';
 import CreatePost from './components/CreatePost'; 
+import FlashMessage from './components/FlashMessag';
+import ViewSinglePost from './components/ViewSinglePost'; 
 
 import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom';
 
@@ -20,8 +22,18 @@ function Main(){
     const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))
 
 
+    const [FlashMessages, setFlashMessages] = useState([])
+
+
+    function addFlashMessage(msg){
+
+        setFlashMessages(prev => prev.concat(msg))
+    }
+
+
     return(
    <Router>
+       <FlashMessage  messages={FlashMessages}/>
   
   <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
   
@@ -34,7 +46,15 @@ function Main(){
 
       <Route  exact path="/about" component={About}/>
 
-     <Route exact path = "/create-post" component ={CreatePost} />
+     <Route exact path = "/create-post" component >
+         <CreatePost addFlashMessage={addFlashMessage} 
+         />
+
+         
+     </Route>
+
+
+      <Route exact path ="/post/:id" component={ViewSinglePost} />
 
       <Route exact path ="/Term" component ={Terms} />
   </Switch>

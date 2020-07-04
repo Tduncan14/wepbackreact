@@ -1,8 +1,9 @@
 import React, {useEffect,useState} from 'react';
 import Page from './Page';
 import Axios from 'axios'
+import {withRouter} from 'react-router-dom';
 
-function CreatePost(){
+function CreatePost(props){
 
     
   const [title , setTitle] = useState();
@@ -26,6 +27,12 @@ function CreatePost(){
             body:body,
             token:localStorage.getItem('token')
           } )
+
+
+          // redirect to new post url
+
+          props.history.push(`/post/${response.data}`)
+         
 
 
 
@@ -84,4 +91,4 @@ return(
 }
 
 
-export default CreatePost;
+export default withRouter(CreatePost);
