@@ -1,7 +1,9 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect,useState,useContext} from 'react';
 import Page from './Page';
 import Axios from 'axios'
 import {withRouter} from 'react-router-dom';
+// import ExampleContext from '../ExampleContext';
+import dispatchContext from '../DispatchContext';
 
 function CreatePost(props){
 
@@ -11,6 +13,10 @@ function CreatePost(props){
 
   const [body, setBody] = useState();
 
+
+  // const {addFlashMessage} = useContext(ExampleContext)
+
+ const appDispatch = useContext(dispatchContext)
   // const [user,setUser] = useState
 
 
@@ -30,6 +36,9 @@ function CreatePost(props){
 
 
           // redirect to new post url
+
+          // addFlashMessage("Keep moving forward")
+          appDispatch({type:"flashMessage",value:"new post created"})
 
           props.history.push(`/post/${response.data}`)
          

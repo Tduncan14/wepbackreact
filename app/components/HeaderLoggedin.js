@@ -1,13 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useContext} from 'react';
 import {Link} from 'react-router-dom';
+// import ExampleContext from '../ExampleContext';
 
+import dispatchContext from '../DispatchContext';
 function HeaderLoggedIn(props){
 
+
+  const appDispatch = useContext(dispatchContext)
+
+  // const{setLoggedIn} = useContext(ExampleContext)
 
  function signout(){
 
 
-    props.setLoggedIn(false)
+    // setLoggedIn(false)
+
+    appDispatch({type:"logout"})
 
     localStorage.removeItem('token');
 
@@ -29,7 +37,7 @@ function HeaderLoggedIn(props){
         <a href="#" className="mr-2">
           <img className="small-header-avatar" src={localStorage.getItem('avatar')}/>
         </a>
-        <Link to="create-post" className="btn btn-sm btn-success mr-2">
+        <Link to="/create-post" className="btn btn-sm btn-success mr-2">
           Create Post
         </Link>
         <button className="btn btn-sm btn-secondary" onClick={signout}>

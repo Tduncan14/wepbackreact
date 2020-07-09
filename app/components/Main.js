@@ -25,7 +25,7 @@ const Main = () => {
       e.preventDefault()
 
     try {
-      await a
+      await 
       Axios.post('/register',{
         username:username,
         email:useremail,

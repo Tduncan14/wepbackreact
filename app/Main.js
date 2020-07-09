@@ -1,5 +1,11 @@
-import React,{useState} from 'react';
+import React,{useState,useReducer} from 'react';
 import ReactDOM from 'react-dom';
+
+import StateContext from './StateContext';
+import DispatchContext from './DispatchContext';
+
+
+
 import Header from './components/Header';
 import HomeGuest from './components/Main';
 import Footer from './components/Footer';
@@ -9,6 +15,8 @@ import Home from './components/Home';
 import CreatePost from './components/CreatePost'; 
 import FlashMessage from './components/FlashMessag';
 import ViewSinglePost from './components/ViewSinglePost'; 
+// import ExampleContext from './ExampleContext'
+
 
 import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom';
 
@@ -18,39 +26,81 @@ Axios.defaults.baseURL ='http://localhost:8080'
 
 function Main(){
 
-    
-    const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))
 
-
-    const [FlashMessages, setFlashMessages] = useState([])
-
-
-    function addFlashMessage(msg){
-
-        setFlashMessages(prev => prev.concat(msg))
+    const intialState = {
+        loggedIn: Boolean(localStorage.getItem('token')),
+        flashMessages: []
     }
 
 
+    function ourReducer(state,action){
+
+
+        switch(action.type){
+
+
+          case "login":
+              return {loggedIn:true,flashMessage:state.flashMessages}
+
+          case "logout":
+              return {loggedIn:false, flashMessages:state.flashMessages
+            }
+
+          case "flashMessage":
+              return {loggedIn:state.loggedIn, flashMessage: state.flashMessages.concat(action.value)}
+
+
+
+ 
+            
+        }
+
+
+    }
+
+
+    const [state,dispatch] = useReducer(ourReducer,intialState)
+
+    
+    // const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))
+
+
+    // const [FlashMessages, setFlashMessages] = useState([])
+
+
+    // function addFlashMessage(msg){
+
+    //     setFlashMessages(prev => prev.concat(msg))
+    // }
+
+
     return(
+        // with useState <ExampleContext.Provider value={{addFlashMessage,setLoggedIn}}>
+
+        <StateContext.Provider value={state}>
+            <DispatchContext.Provider value={dispatch}>
    <Router>
-       <FlashMessage  messages={FlashMessages}/>
+       <FlashMessage  messages={state.flashMessages}/>
   
-  <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+  <Header/>
   
   <Switch>
       {/* <Route  exact path="/" component={loggedIn ?Home : HomeGuest}/> */}
 
       <Route exact path = "/">
-          {loggedIn ? <Home /> : <HomeGuest />}
+          {state.loggedIn ? <Home /> : <HomeGuest />}
       </Route>
 
-      <Route  exact path="/about" component={About}/>
+      <Route  exact path="/about">
 
-     <Route exact path = "/create-post" component >
-         <CreatePost addFlashMessage={addFlashMessage} 
+          <About/>
+      </Route>
+
+     <Route exact path = "/create-post" >
+         <CreatePost 
          />
 
-         
+
      </Route>
 
 
@@ -61,6 +111,10 @@ function Main(){
    
    <Footer/>
    </Router>
+
+   </DispatchContext.Provider>
+
+   </StateContext.Provider>
     )
 }
 
