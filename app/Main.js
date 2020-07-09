@@ -36,24 +36,18 @@ function Main(){
     function ourReducer(state,action){
 
 
-        switch(action.type){
+        console.log(state,'this is the state')
 
+        switch (action.type) {
+            case "login":
+              return { loggedIn: true, flashMessages: state.flashMessages }
+            case "logout":
+              return { loggedIn: false, flashMessages: state.flashMessages }
+            case "flashMessage":
+              return { loggedIn: state.loggedIn, flashMessages: state.flashMessages.concat(action.value) }
+          }
 
-          case "login":
-              return {loggedIn:true,flashMessage:state.flashMessages}
-
-          case "logout":
-              return {loggedIn:false, flashMessages:state.flashMessages
-            }
-
-          case "flashMessage":
-              return {loggedIn:state.loggedIn, flashMessage: state.flashMessages.concat(action.value)}
-
-
-
- 
-            
-        }
+        console.log(state,'this is the state')
 
 
     }

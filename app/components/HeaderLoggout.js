@@ -1,46 +1,35 @@
 import React, {useEffect,useState,useContext} from 'react';
 import Axios from 'axios';
 // import ExampleContext from '../ExampleContext';
-import dispatchContext from '../DispatchContext';
+import DispatchContext from '../DispatchContext';
 
 function HeaderLoggout (props) {
 
   //  const {setLoggedIn} = useContext(ExampleContext)
 
-  const appDispatch = useContext(dispatchContext);
-
+  const appDispatch = useContext(DispatchContext)
+  ;
    const [username,setUsername]  = useState()
-
    const [password,setPassword] = useState()
-
+  
    async function handleSubmit(e){
-
     e.preventDefault()
-
      console.log('clcicked')
 
      try{
-
-       const response = await Axios.post('/login',{
-            username,
-            password
-        })
-
+      const response = await Axios.post("/login", { username, password })
 
         if(response.data){
 
-            console.log(response.data)
+            console.log(response.data,"show the response")
 
             localStorage.setItem("token",response.data.token)
-
             localStorage.setItem('avatar',response.data.avatar)
-
-
             localStorage.setItem('username', response.data.username)
 
        
 
-              appDispatch({type:login})
+              appDispatch({type:'login'})
       
         }
 
@@ -56,8 +45,9 @@ function HeaderLoggout (props) {
 
      catch(e){
 
-        console.log(e.response.error)
+        // console.log(e.response.error)
 
+        console.log(e.response)
      }
 
 

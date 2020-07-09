@@ -1,12 +1,14 @@
 import React, {useEffect,useContext} from 'react';
-import {Link} from 'react-router-dom';
+import {browserHistory,Link} from 'react-router-dom';
+
+import {withRouter} from 'react-router';
 // import ExampleContext from '../ExampleContext';
 
-import dispatchContext from '../DispatchContext';
+import DispatchContext from '../DispatchContext';
 function HeaderLoggedIn(props){
 
 
-  const appDispatch = useContext(dispatchContext)
+  const appDispatch = useContext(DispatchContext)
 
   // const{setLoggedIn} = useContext(ExampleContext)
 
@@ -15,13 +17,12 @@ function HeaderLoggedIn(props){
 
     // setLoggedIn(false)
 
-    appDispatch({type:"logout"})
-
+    appDispatch({type: "logout"})
     localStorage.removeItem('token');
-
     localStorage.removeItem('avatar');
-
     localStorage.removeItem('username')
+
+    props.history.push('/')
  }
 
     return(
@@ -51,4 +52,4 @@ function HeaderLoggedIn(props){
 }
 
 
-export default HeaderLoggedIn
+export default withRouter(HeaderLoggedIn)
