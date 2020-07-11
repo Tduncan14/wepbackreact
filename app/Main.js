@@ -30,7 +30,12 @@ function Main(){
 
     const intialState = {
         loggedIn: Boolean(localStorage.getItem('token')),
-        flashMessages: []
+        flashMessages: [],
+        user:{
+            token:localStorage.getItem('token'),
+            username:localStorage.getItem('username'),
+            avatar:localStorage.getItem('avatar')
+        }
     }
 
 
