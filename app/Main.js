@@ -1,10 +1,11 @@
 import React,{useState,useReducer} from 'react';
 import ReactDOM from 'react-dom';
 
+
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
 
-
+import { useImmerReducer } from "use-immer";
 
 import Header from './components/Header';
 import HomeGuest from './components/Main';
@@ -33,27 +34,35 @@ function Main(){
     }
 
 
-    function ourReducer(state,action){
+    function ourReducer(draft,action){
 
 
-        console.log(state,'this is the state')
+        
 
         switch (action.type) {
             case "login":
-              return { loggedIn: true, flashMessages: state.flashMessages }
+                 draft.loggedIn = true 
+                 break;
+           
+             
             case "logout":
-              return { loggedIn: false, flashMessages: state.flashMessages }
-            case "flashMessage":
-              return { loggedIn: state.loggedIn, flashMessages: state.flashMessages.concat(action.value) }
-          }
+                  draft.loggedIn =  false
+                  break;
+           
 
-        console.log(state,'this is the state')
+            case "flashMessage":
+                 draft.flashMessages.push(action.value)
+                 break;
+           
+          }
+            
+
 
 
     }
 
 
-    const [state,dispatch] = useReducer(ourReducer,intialState)
+    const [state,dispatch] = useImmerReducer(ourReducer,intialState)
 
     
     // const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))
