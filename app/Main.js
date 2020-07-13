@@ -1,4 +1,4 @@
-import React,{useState,useReducer} from 'react';
+import React,{useState,useReducer, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 
@@ -7,6 +7,7 @@ import DispatchContext from './DispatchContext';
 
 import { useImmerReducer } from "use-immer";
 
+import Profile from './components/Profile';
 import Header from './components/Header';
 import HomeGuest from './components/Main';
 import Footer from './components/Footer';
@@ -47,6 +48,7 @@ function Main(){
         switch (action.type) {
             case "login":
                  draft.loggedIn = true 
+                 draft.user = action.data
                  break;
            
              
@@ -68,6 +70,30 @@ function Main(){
 
 
     const [state,dispatch] = useImmerReducer(ourReducer,intialState)
+
+
+    useEffect(() => {
+
+        if(state.loggedIn){
+
+            localStorage.setItem('avatar',state.user.avatar)
+
+            localStorage.setItem('token', state.user.token)
+
+            localStorage.setItem('username',state.user.username)
+
+
+        }
+
+        else{
+
+            localStorage.removeItem('token')
+            localStorage.removeItem('avatar')
+            localStorage.removeItem('username')
+
+        }
+
+    },[state.loggedIn])
 
     
     // const [loggedIn , setLoggedIn] = useState(Boolean(localStorage.getItem('token')))

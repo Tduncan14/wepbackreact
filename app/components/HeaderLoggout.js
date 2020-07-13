@@ -23,13 +23,13 @@ function HeaderLoggout (props) {
 
             console.log(response.data,"show the response")
 
-            localStorage.setItem("token",response.data.token)
-            localStorage.setItem('avatar',response.data.avatar)
-            localStorage.setItem('username', response.data.username)
+            // localStorage.setItem("token",response.data.token)
+            // localStorage.setItem('avatar',response.data.avatar)
+            // localStorage.setItem('username', response.data.username)
 
        
 
-              appDispatch({type:'login'})
+              appDispatch({type:'login', data:response.data})
       
         }
 

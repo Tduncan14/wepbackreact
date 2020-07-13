@@ -5,10 +5,15 @@ import {withRouter} from 'react-router';
 // import ExampleContext from '../ExampleContext';
 
 import DispatchContext from '../DispatchContext';
+
+import StateContext from '../StateContext';
+
 function HeaderLoggedIn(props){
 
 
   const appDispatch = useContext(DispatchContext)
+
+  const appState = useContext(StateContext)
 
   // const{setLoggedIn} = useContext(ExampleContext)
 
@@ -18,9 +23,9 @@ function HeaderLoggedIn(props){
     // setLoggedIn(false)
 
     appDispatch({type: "logout"})
-    localStorage.removeItem('token');
-    localStorage.removeItem('avatar');
-    localStorage.removeItem('username')
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('avatar');
+    // localStorage.removeItem('username')
 
     props.history.push('/')
  }
@@ -35,9 +40,9 @@ function HeaderLoggedIn(props){
           <i className="fas fa-comment"></i>
           <span className="chat-count-badge text-white"> </span>
         </span>
-        <a href="#" className="mr-2">
-          <img className="small-header-avatar" src={localStorage.getItem('avatar')}/>
-        </a>
+        <Link to ={`profile/${appState.user.username}`} className="mr-2">
+          <img className="small-header-avatar" src={appState.user.avatar}/>
+        </Link>
         <Link to="/create-post" className="btn btn-sm btn-success mr-2">
           Create Post
         </Link>

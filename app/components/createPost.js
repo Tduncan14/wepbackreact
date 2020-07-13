@@ -4,7 +4,8 @@ import Axios from 'axios'
 import {withRouter} from 'react-router-dom';
 // import ExampleContext from '../ExampleContext';
 import dispatchContext from '../DispatchContext';
-
+import stateContext from '../StateContext';
+import StateContext from '../StateContext';
 function CreatePost(props){
 
     
@@ -20,6 +21,9 @@ function CreatePost(props){
   // const [user,setUser] = useState
 
 
+ const appState = useContext(StateContext);
+
+
      async function handleSubmit(e){
 
 
@@ -31,7 +35,7 @@ function CreatePost(props){
           const response =  await Axios.post('/create-post',{
             title:title,
             body:body,
-            token:localStorage.getItem('token')
+            token:appState.user.token
           } )
 
 
