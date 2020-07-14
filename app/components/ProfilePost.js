@@ -1,25 +1,71 @@
-import React from 'react';
-
+import React,{useEffect,useState}from 'react';
+import Axios from 'axios';
+import {useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function ProfilePost (){
 
+    const [isLoading, setIsLoading] = useState(true)
+
+    const {username} = useParams()
+    
+    const [post,setPost] = useState([])
+
+
+
+     useEffect(() =>{
+
+
+         async function fetchPosts(){
+
+           try{
+
+            const response = await Axios.get(`/profile/${username}/posts`)
+
+ 
+            setPost(response.data)
+            setIsLoading(false)
+           }
+
+            catch(e){
+
+            }
+
+         }
+         
+     fetchPosts()
+     },[]
+    )
+
+    if(isLoading) return <div>Loading...</div>
 
 
     return(
        
-        <div className="list-group">
-        <a href="#" className="list-group-item list-group-item-action">
-          <img className="avatar-tiny" src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128" /> <strong>Example Post #1</strong>
-          <span className="text-muted small">on 2/10/2020 </span>
-        </a>
-        <a href="#" className="list-group-item list-group-item-action">
-          <img className="avatar-tiny" src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128" /> <strong>Example Post #2</strong>
-          <span className="text-muted small">on 2/10/2020 </span>
-        </a>
-        <a href="#" className="list-group-item list-group-item-action">
-          <img className="avatar-tiny" src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128" /> <strong>Example Post #3</strong>
-          <span className="text-muted small">on 2/10/2021 </span>
-        </a>
+        <div className="list-group-item list-group-item-action">
+        {
+         post.map((p,i) =>{
+
+            const date = new Date(p.createdDate)
+            
+            console.log(date,'this is the date')
+            const dateformat = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
+
+
+
+         
+       return (<a to ="/" key={p._id}
+>   
+    <img className ='avatar-tiny' src={p.author.avatar} />
+    <strong>{p.title}</strong> {" "}
+         <span className = "text-muted small"> on {dateformat}</span>
+
+    <br />
+     </a>
+          ) })
+
+
+        }
       </div>
     )
 
