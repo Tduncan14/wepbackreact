@@ -121,6 +121,11 @@ function Main(){
   <Switch>
       {/* <Route  exact path="/" component={loggedIn ?Home : HomeGuest}/> */}
 
+
+      <Route exact path="/profile/:username">
+          <Profile />
+      </Route>
+
       <Route exact path = "/">
           {state.loggedIn ? <Home /> : <HomeGuest />}
       </Route>
