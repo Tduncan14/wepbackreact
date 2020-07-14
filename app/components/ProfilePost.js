@@ -54,14 +54,14 @@ function ProfilePost (){
 
 
          
-       return (<a to ="/" key={p._id}
+       return (< Link to ={`/post/${p._id}`} key={p._id}
 >   
     <img className ='avatar-tiny' src={p.author.avatar} />
     <strong>{p.title}</strong> {" "}
          <span className = "text-muted small"> on {dateformat}</span>
 
     <br />
-     </a>
+     </Link>
           ) })
 
 
