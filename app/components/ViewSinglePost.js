@@ -2,8 +2,10 @@ import React,{useEffect, useState,useContext} from 'react';
 import Page from './Page';
 import StateContext from '../StateContext';
 import Axios from 'axios';
-import {useParams} from 'react-router-dom';
-
+import {useParams,Link} from 'react-router-dom';
+import LoadingDotIcon from './LoadingDotIcon';
+import ReactMarkdown from 'react-markdown';
+import ReactTooltip from 'react-tooltip';
 
 function ViewSinglePost(){
 
@@ -22,21 +24,23 @@ function ViewSinglePost(){
 
    useEffect(() => {
 
+      const ourRequest = Axios.CancelToken.source()
 
        async function fetchPost(){
 
         try{
-          const response = await Axios.get(`/post/${id}`);
+          const response = await Axios.get(`/post/${id}`,{CancelToken: ourRequest.token});
    
           setPost(response.data)
           setIsLoading(false)
 
-          console.log(post)
+        
+          console.log(post.title, "this is the data")
 
         }
 
         catch(e){
-          console.log('this is the rror')
+          console.log('this is the error or request was canceled')
         }
 
 
@@ -44,10 +48,20 @@ function ViewSinglePost(){
 
       fetchPost()
 
+
+      // clean up function
+
+      return () =>{
+        console.log(post)
+         ourRequest.cancel();
+
+       
+      }
+
    },[])
 
    if(isLoading) return <Page title ="...">
-     <div>Loading</div>
+     <LoadingDotIcon />
    </Page>
 
   
@@ -60,24 +74,27 @@ function ViewSinglePost(){
 
 
 
-        <Page title="Post">
+        <Page title={post.title}>
         <div className="d-flex justify-content-between">
         <h2>{post.title}</h2>
         <span className="pt-2">
-          <a href="#" className="text-primary mr-2" title="Edit"><i className="fas fa-edit"></i></a>
-          <a className="delete-post-button text-danger" title="Delete"><i className="fas fa-trash"></i></a>
+          <a href="#" data-tip ="Edit" data-for ="edit" className="text-primary mr-2" title="Edit"><i className="fas fa-edit"></i></a>
+          <ReactTooltip  id="edit" className="custom-tooltip"/>
+          <a className="delete-post-button text-danger"  data-tip="Delete"  data-for="delete" title="Delete"><i className="fas fa-trash"></i></a>
+
+          <ReactTooltip  id="delete" className="custom-tooltip"/>
         </span>
       </div>
 
       <p className="text-muted small mb-4">
-        <a href="#">
+        <Link to={`/profile/${post.author.username}`}>
           <img className="avatar-tiny" src={post.author.avatar}/>
-        </a>
-        Posted by <a href="#">{post.author.username}</a> on {dateformat}
+        </Link>
+        Posted by <Link to={`/post/${post.author.username}`}>{post.author.username}</Link> on {dateformat}
       </p>
 
       <div className="body-content">
-        {post.body}
+        <ReactMarkdown source ={post.body} allowedTypes={["paragraph","strong","text","heading","emphasis","list","listItem"]}/>
       </div>
 
     </Page>

@@ -8,7 +8,7 @@ function Page (props) {
         document.title = `${props.title} |`
         
         window.scrollTo(0,0)
-      },[])
+      },[props.title])
 
 
 

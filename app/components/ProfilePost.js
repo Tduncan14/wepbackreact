@@ -2,6 +2,7 @@ import React,{useEffect,useState}from 'react';
 import Axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import DotIsLoading from './LoadingDotIcon';
 
 function ProfilePost (){
 
@@ -37,7 +38,7 @@ function ProfilePost (){
      },[]
     )
 
-    if(isLoading) return <div>Loading...</div>
+    if(isLoading) return <DotIsLoading />
 
 
     return(
@@ -48,7 +49,7 @@ function ProfilePost (){
 
             const date = new Date(p.createdDate)
             
-            console.log(date,'this is the date')
+         
             const dateformat = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
 
 
