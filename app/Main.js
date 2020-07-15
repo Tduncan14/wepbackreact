@@ -17,6 +17,8 @@ import Home from './components/Home';
 import CreatePost from './components/CreatePost'; 
 import FlashMessage from './components/FlashMessag';
 import ViewSinglePost from './components/ViewSinglePost'; 
+
+import EditPost from './components/EditPost';
 // import ExampleContext from './ExampleContext'
 
 
@@ -144,6 +146,11 @@ function Main(){
 
 
       <Route exact path ="/post/:id" component={ViewSinglePost} />
+
+
+      <Route exact path ="/post/:id/edit">
+          {EditPost}
+      </Route>
 
       <Route exact path ="/Term" component ={Terms} />
   </Switch>
